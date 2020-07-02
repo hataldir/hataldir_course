@@ -1,0 +1,7 @@
+name: crawler
+version: 1.0.0
+description: OTUS crawler application crawler
+maintainers:
+  - name: Hataldir
+    email: hataldir@gmail.com
+appVersion: 1.0

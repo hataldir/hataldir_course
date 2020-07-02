@@ -1,0 +1,15 @@
+dependencies:
+- name: webui
+  repository: file://../webui
+  version: 1.0.0
+- name: crawler
+  repository: file://../crawler
+  version: 1.0.0
+- name: rabbitmq
+  repository: file://../rabbitmq
+  version: 1.0.0
+- name: mongodb
+  repository: file://../mongodb
+  version: 1.0.0
+digest: sha256:725300c2e9e5ed1ef32e465efda529c579fce2cadee54669f02fad7ea256daba
+generated: "2020-07-02T08:53:30.882292958+05:00"
