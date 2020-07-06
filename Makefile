@@ -66,6 +66,8 @@ gke:
 
 gitlab-init:
 	echo "Создание группы и установка переменных"
+
+# change groups/3 to groups/1
 	curl --request POST --header "PRIVATE-TOKEN: ${TOKEN}" --header "Content-Type: application/json" --data '{"path": "${USER_NAME}", "name": "${USER_NAME}", "visibility": "public" }'  "http://${GITLAB_URL}/api/v4/groups/"
 	curl --request POST --header "PRIVATE-TOKEN: ${TOKEN}" "http://${GITLAB_URL}/api/v4/groups/3/variables" --form "key=CI_REGISTRY_USER" --form "value=${USER_NAME}"
 	curl --request POST --header "PRIVATE-TOKEN: ${TOKEN}" "http://${GITLAB_URL}/api/v4/groups/3/variables" --form "key=CI_REGISTRY_PASSWORD" --form "value=${USER_PASS}"
