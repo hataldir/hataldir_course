@@ -1,0 +1,112 @@
+image: alpine:latest
+
+stages:
+  - test
+  - staging
+  - production
+
+test:
+  stage: test
+  script:
+    - exit 0
+  only:
+    - triggers
+    - branches
+
+
+
+.script_template: &deployscript 
+ before_script:
+   # install_dependencies
+    - apk add -U openssl curl tar gzip bash ca-certificates git
+    - wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+    - wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-2.23-r3.apk
+    - apk add glibc-2.23-r3.apk
+    - rm glibc-2.23-r3.apk
+
+    - curl https://kubernetes-helm.storage.googleapis.com/helm-v2.13.1-linux-amd64.tar.gz | tar zx
+
+    - mv linux-amd64/helm /usr/bin/
+    - helm version --client
+
+    - curl -L -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    - chmod +x /usr/bin/kubectl
+    - kubectl version --client
+  # ensure_namespace
+    - kubectl describe namespace "$KUBE_NAMESPACE" || kubectl create namespace "$KUBE_NAMESPACE"
+
+  # install_tiller
+    - echo "Checking Tiller..."
+    - helm init --client-only
+#    - kubectl rollout status -n "$TILLER_NAMESPACE" -w "deployment/tiller-deploy"
+#    if ! helm version --debug; then
+#      echo "Failed to init Tiller."
+#      return 1
+#    fi
+#    echo ""
+
+ script:
+   # deploy
+    - echo $KUBE_NAMESPACE
+    - track="${1-stable}"
+    - name="$CI_ENVIRONMENT_SLUG"
+    - helm dep build search
+
+    # for microservice in $(helm dep ls | grep "file://" | awk '{print $1}') ; do
+    #   SET_VERSION="$SET_VERSION \ --set $microservice.image.tag='$(curl http://$GITLAB_URL/$CI_PROJECT_NAMESPACE/ui/raw/master/VERSION)' "
+
+    - echo "helm upgrade --install --wait --set ui.ingress.host="$host" --set crawler.image.tag="$(curl http://$GITLAB_URL/$CI_PROJECT_NAMESPACE/crawler/raw/master/VERSION)" --set webui.image.tag="$(curl http://$GITLAB_URL/$CI_PROJECT_NAMESPACE/webui/raw/master/VERSION)"  --namespace="$KUBE_NAMESPACE" --version="$CI_PIPELINE_ID-$CI_JOB_ID" "$name" search"
+
+    - >
+      helm upgrade --install \
+        --wait \
+        --set ui.ingress.host="$host" \
+        --namespace="$KUBE_NAMESPACE" \
+        --version="$CI_PIPELINE_ID-$CI_JOB_ID" \
+        "$name" \
+        search
+
+#        --set crawler.image.tag="$(curl http://$GITLAB_URL/$CI_PROJECT_NAMESPACE/crawler/raw/master/VERSION)" \
+#        --set webui.image.tag="$(curl http://$GITLAB_URL/$CI_PROJECT_NAMESPACE/webui/raw/master/VERSION)" \
+
+
+#  function delete() {
+#    track="${1-stable}"
+#    name="$CI_ENVIRONMENT_SLUG"
+#    helm delete "$name" || true
+#  }
+
+
+
+staging:
+  stage: staging
+  variables:
+    KUBE_NAMESPACE: staging
+    name: "$CI_ENVIRONMENT_SLUG"
+  environment:
+    name: staging
+    url: http://staging
+  only:
+    refs:
+      - master
+#    kubernetes: active
+  <<: *deployscript
+
+
+
+production:
+  stage: production
+  variables:
+    KUBE_NAMESPACE: production
+    name: "$CI_ENVIRONMENT_SLUG"
+  environment:
+    name: production
+    url: http://production
+  when: manual
+  only:
+    refs:
+      - master
+#    kubernetes: active
+  <<: *deployscript
+
+

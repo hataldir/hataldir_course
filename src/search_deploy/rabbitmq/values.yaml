@@ -1,0 +1,10 @@
+service:
+  internalPort: 5672
+  externalPort: 5672
+image:
+  repository: rabbitmq
+  tag: 3
+user:
+  name: user
+  password: password
+

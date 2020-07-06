@@ -1,0 +1,7 @@
+name: rabbitmq
+version: 1.0.0
+description: OTUS crawler application RabbitMQ
+maintainers:
+  - name: Hataldir
+    email: hataldir@mgail.com
+appVersion: 1.0
