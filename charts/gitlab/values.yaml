@@ -40,12 +40,16 @@ global:
     allowClusterRoles: true
   ## doc/charts/globals.md#configure-host-settings
   hosts:
-    domain: example.com
+#    domain: default.svc.cluster.local
+    domain: 34.77.107.70.nip.io
     hostSuffix:
-    https: true
+    https: false
     externalIP:
     ssh: ~
     gitlab: {}
+#       name: gitlab.34.77.107.70.xip.io
+     
+#       name: gitlab-webservice
     minio: {}
     registry: {}
     tls: {}
@@ -55,8 +59,8 @@ global:
     configureCertmanager: true
     annotations: {}
     enabled: true
-    tls: {}
-    #   enabled: true
+    tls: 
+       enabled: false
     #   secretName:
 
   gitlab:

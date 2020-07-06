@@ -1,9 +1,30 @@
 01.07. Создан репозиторий, скачаны исходники приложения. 
-       Созданы контейнеры для crawler и webui, запушены на docker hub
-       Создан Makefile
+    Созданы контейнеры для crawler и webui, запушены на docker hub
+    Создан Makefile
+
 02.07. Созданы чарты rabbitmq, mongodb, crawler, webui и объединяющий их search. 
 !Workaround        Траблшутинг - цифровые параметры в чартах в кавычках.  
-       Траблшутинг - ингресс для webui
-       Приложение работает
-       Установлен gitlab (gitlab/gitlab)
-       Получение ip и пароля внесено в Makefile
+    Траблшутинг - ингресс для webui
+    Приложение работает. (!)
+    Установлен gitlab (gitlab/gitlab). Получение ip и пароля внесено в Makefile
+    Пуш crawler, webui и search внесены в Makefile
+    Установлены prometheus и grafana. Получение ip и пароля внесено в Makefile
+    Не стартует gitlab runner, не резолвится адрес гитлаба.
+
+03.07. Gitlab runner - траблшутинг.
+    С адресом из nip.io заработало.
+
+04.07 Настройка гитлаба с помощью API - в makefile
+    Пайплайны. Для crawler и webui - стадии build, trigger_deploy, release. Для search - staging, prod
+
+05.07 Пайпланы - стадии review и test.
+
+06.07 Prometheus и grafana
+
+
+план:
+ endpoints для сервисов crawler, webui, mongodb, rabbitmq
+ 
+ 
+
+	
