@@ -43,10 +43,6 @@ helm-init:
 	echo "Инициализация helm" ; \
 	helm init 
 
-search-ip:
-	echo "IP-адрес веб-интерфейса приложения" ; \
-	kubectl get ingress search-webui -ojsonpath='{.status.loadBalancer.ingress[0].ip}'; echo
-
 
 gitlab-install:
 	echo "Установка Gitlab с помощью helm" ; \
@@ -74,11 +70,16 @@ gitlab-init:
 	curl --request POST --header "PRIVATE-TOKEN: ${TOKEN}" "http://${GITLAB_URL}/api/v4/groups/3/variables" --form "key=CI_REGISTRY_USER" --form "value=${USER_NAME}"
 	curl --request POST --header "PRIVATE-TOKEN: ${TOKEN}" "http://${GITLAB_URL}/api/v4/groups/3/variables" --form "key=CI_REGISTRY_PASSWORD" --form "value=${USER_PASS}"
 	curl --request POST --header "PRIVATE-TOKEN: ${TOKEN}" "http://${GITLAB_URL}/api/v4/groups/3/variables" --form "key=GITLAB_URL" --form "value=${GITLAB_URL}"
-	curl --request POST --header "PRIVATE-TOKEN: ${TOKEN}" "http://${GITLAB_URL}/api/v4/groups/3/variables" --form "key=SEARCH_ID" --form "value=6"
+	curl --request POST --header "PRIVATE-TOKEN: ${TOKEN}" "http://${GITLAB_URL}/api/v4/groups/3/variables" --form "key=SEARCH_ID" --form "value=6"   # change to 3
+
+gitlab-ip-add:
+
+gitlab-init2:
 	curl --request POST --header "PRIVATE-TOKEN: ${TOKEN}" "http://${GITLAB_URL}/api/v4/groups/3/variables" --form "key=TOKEN" --form "value=${SEARCH_TOKEN}"
 
 gitlab-push-webui:
 	cd src/search_engine_ui ;\
+	git remote remove origin ;\
 	git remote add origin http://${GITLAB_URL}/${USER_NAME}/webui.git ;\
 	git add . ;\
 	git commit -m "initial commit" ;\
@@ -86,6 +87,7 @@ gitlab-push-webui:
 
 gitlab-push-crawler:
 	cd src/search_engine_crawler ;\
+	git remote remove origin ;\
 	git remote add origin http://${GITLAB_URL}/${USER_NAME}/crawler.git ;\
 	git add . ;\
 	git commit -m "initial commit" ;\
@@ -93,6 +95,7 @@ gitlab-push-crawler:
 
 gitlab-push-search:
 	cd charts/search ;\
+	git remote remove origin ;\
 	git remote add origin http://${GITLAB_URL}/${USER_NAME}/search.git ;\
 	git add . ;\
 	git commit -m "initial commit" ;\
@@ -118,6 +121,20 @@ ingress-install:
 	echo "Установка Nginx Ingress"
 	helm install stable/nginx-ingress --name nginx
 
+ingress-ip-add:
+
 ingress-ip:
 	echo "IP-адресс nginx ingress"
 	kubectl get svc nginx-nginx-ingress-controller -ojsonpath='{.status.loadBalancer.ingress[0].ip}'; echo
+
+monitor: prom-install grafana-install
+
+search-ip-prod:
+	echo "IP-адрес веб-интерфейса окружения production" ; \
+	kubectl get ingress production-webui -n production -ojsonpath='{.status.loadBalancer.ingress[0].ip}'; echo
+
+search-ip-staging:
+	echo "IP-адрес веб-интерфейса окружения staging" ; \
+	kubectl get ingress staging-webui -n staging -ojsonpath='{.status.loadBalancer.ingress[0].ip}'; echo
+
+search-ip: search-ip-staging search-ip-prod
