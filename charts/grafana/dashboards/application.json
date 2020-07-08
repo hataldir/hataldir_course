@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1594029408115,
+  "id": 1,
+  "iteration": 1594035775116,
   "links": [],
   "panels": [
     {
@@ -25,7 +25,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "description": "Rate of UI HTTP errors",
+      "description": "Web pages served",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -41,7 +41,7 @@
         "y": 0
       },
       "hiddenSeries": false,
-      "id": 4,
+      "id": 2,
       "legend": {
         "avg": false,
         "current": false,
@@ -68,7 +68,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(ui_request_count{namespace=~\"$namespace\"}[1m])",
+          "expr": "web_pages_served{kubernetes_namespace=~\"$namespace\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -80,7 +80,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Rate of UI HTTP errors",
+      "title": "Web pages served",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -165,7 +165,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(ui_request_response_time_bucket{namespace=~\"$namespace\"}[5m])) by (le))",
+          "expr": "web_page_gen_time_sum{kubernetes_namespace=~\"$namespace\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -177,7 +177,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "HTTP response time 95% procentile",
+      "title": "Web page generation time",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -220,7 +220,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "description": "UI HTTP requests",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -230,13 +229,108 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
         "x": 0,
         "y": 9
       },
       "hiddenSeries": false,
-      "id": 2,
+      "id": 8,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "crawler_pages_parsed{kubernetes_namespace=~\"$namespace\"} ",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Crawler pages parsed",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 4,
       "legend": {
         "avg": false,
         "current": false,
@@ -263,7 +357,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(ui_request_count{namespace=~\"$namespace\"}[1m])",
+          "expr": "crawler_site_connection_time_sum{kubernetes_namespace=~\"$namespace\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -275,7 +369,101 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "UI HTTP requests",
+      "title": "Crawler site connection time",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "hiddenSeries": false,
+      "id": 10,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "crawler_page_parse_time_sum{kubernetes_namespace=~\"$namespace\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Crawler page parse time sum",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -324,8 +512,9 @@
         "current": {
           "selected": true,
           "tags": [],
-          "text": "staging",
+          "text": "production + staging",
           "value": [
+            "production",
             "staging"
           ]
         },
@@ -363,7 +552,7 @@
             "value": "kube-system"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "production",
             "value": "production"
           },
@@ -422,5 +611,5 @@
   "timezone": "",
   "title": "UI_Sevice_Monitoring",
   "uid": "BhYanRzMk",
-  "version": 5
+  "version": 1
 }

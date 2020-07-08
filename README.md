@@ -16,9 +16,7 @@
 Кластер создается при помощи terraform.
 Конфигурационные файлы - в каталоге terraform. Запуск - make gke.
 
-Далее устанавливается  Helm (make helm-init)
-
-С его помощью устанавливается nginx-ingress (make ingress-install) и определяется его ip (make ingress-ip)
+Далее устанавливается  Helm (make helm-init), с его помощью устанавливается nginx-ingress и определяется его ip (make ingress-ip)
 
 (TODO) Адрес прописывается в values.yaml для Prometheus и Grafana.
 
@@ -33,7 +31,7 @@
 
 2. Работа с приложением в Gitlab.
 
-У нас развернут Gitlab, в нем создана группа hataldir и три проекта - crawler, webui и search. Адрес веб-интерфейса - gitlab.$gitlab-ip.nip.io, где $gitlab-ip - ip-адрес, определенный в предыдущем пункте (make gitlab-ip)
+У нас развернут Gitlab, в нем создана группа hataldir и три проекта - crawler, webui и search. Адрес веб-интерфейса - gitlab.GITLAB-IP.nip.io, где GITLAB-IP - ip-адрес, определенный в предыдущем пункте (make gitlab-ip)
 Далее необходимо зайти под root в веб-интерфейс Gitlab, в Settings/Access Tokens получить Access token и внести его в Makefile в переменную TOKEN. Также стоит сменить первоначальный пароль root на более простой.
 
 Затем можно выполнить загрузку проектов в Gitlab (make gitlab-push).
@@ -67,8 +65,8 @@ production - создание/обновление окружения production
 
 3. Мониторинг
 
-Для мониторинга используются prometheus и grafana. Они доступны по адресам prometheus.$ingress-ip.nip.io и grafana.$ingress-ip.nip.io, где $ingress-ip - адрес ingress, определенный в первом пункте (make ingress-ip).
-(TODO) Для мониторинга сервисов развернуты exporters для mongodb и rabbitmq.
+Для мониторинга используются prometheus и grafana. Они доступны по адресам prometheus.INGRESS-IP.nip.io и grafana.INGRESS-IP.nip.io, где INGRESS-IP - адрес ingress, определенный в первом пункте (make ingress-ip).
+Для мониторинга сервисов развернуты exporters для mongodb и (TODO) rabbitmq.
 
 Пароль для входа в grafana - otusgitlab.
 Доступны два дашборда - стандартный для Kubernetes и (TODO) свой для мониторинга приложения.

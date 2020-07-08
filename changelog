@@ -3,7 +3,7 @@
     Создан Makefile
 
 02.07. Созданы чарты rabbitmq, mongodb, crawler, webui и объединяющий их search. 
-!Workaround        Траблшутинг - цифровые параметры в чартах в кавычках.  
+    Траблшутинг - цифровые параметры в чартах в кавычках.  
     Траблшутинг - ингресс для webui
     Приложение работает. (!)
     Установлен gitlab (gitlab/gitlab). Получение ip и пароля внесено в Makefile
@@ -19,13 +19,16 @@
 
 05.07 Пайпланы - стадии review и test.
 
-06.07 Prometheus и grafana. 
-    Описание в README.
+06.07 Prometheus - сбор данных с сервисов приложения, экспортеры для mongodb и rabbitmq. Rabbitmq требует management plugin ??
+    Grafana - дашборд для приложения
+    Описание всего в README.
 
+07.07. Prometheus-exporters для двух окружений. 
+    Оптимизация Makefile
 
 план:
- endpoints для сервисов crawler, webui, mongodb, rabbitmq
- 
- 
+ внесение ip-адресов в конифги и Makefile
+ доделать дашборд графаны для приложения
+ EFK 
 
 	

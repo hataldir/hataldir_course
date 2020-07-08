@@ -42,6 +42,8 @@ helm-upgrade:
 helm-init:
 	echo "Инициализация helm" ; \
 	helm init 
+	echo "Установка Nginx Ingress" ;\
+	helm install stable/nginx-ingress --name nginx
 
 
 gitlab-install:
@@ -108,28 +110,36 @@ gitlab-push: gitlab-init gitlab-push-webui gitlab-push-crawler gitlab-push-searc
 prom-install:
 	echo "Установка Prometheus" ;\
 	cd charts/prometheus ;\
-	helm install --name prometheus .
+	helm upgrade prometheus . --install
 
 grafana-install:
 	echo "Установка Grafana" ;\
 	cd charts/grafana ;\
-	helm install --name grafana .
+	helm upgrade grafana . --install
 
 grafana-pass:
 	echo "Пароль Grafana" ;\
 	kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
-ingress-install:
-	echo "Установка Nginx Ingress"
-	helm install stable/nginx-ingress --name nginx
+mongodb-ex:
+	cd charts/prometheus-mongodb-exporter ;\
+	helm upgrade mongodb-exporter-s . -f values-s.yaml --install ;\
+	helm upgrade mongodb-exporter-p . -f values-p.yaml --install
+
+rabbitmq-ex:
+	cd charts/prometheus-rabbitmq-exporter ;\
+	helm upgrade rabbitmq-exporter-s . -f values-s.yaml --install ;\
+	helm upgrade rabbitmq-exporter-p . -f values-p.yaml --install
+
+monitor: prom-install mongodb-ex rabbitmq-ex grafana-install
+
+
 
 ingress-ip-add:
 
 ingress-ip:
-	echo "IP-адресс nginx ingress"
+	echo "IP-адресс nginx ingress" ;\
 	kubectl get svc nginx-nginx-ingress-controller -ojsonpath='{.status.loadBalancer.ingress[0].ip}'; echo
-
-monitor: prom-install grafana-install
 
 search-ip-prod:
 	echo "IP-адрес веб-интерфейса окружения production" ; \

@@ -1557,6 +1557,34 @@ serverFiles:
             target_label: kubernetes_namespace
           - source_labels: [__meta_kubernetes_service_name]
             target_label: kubernetes_name
+ 
+      - job_name: 'mongodb-exporter' 
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_label_app_kubernetes_io_instance]
+            action: keep # Используем действие keep, чтобы оставить
+            regex: mongodb-exporter(.+) # только эндпоинты сервисов с метками
+          - action: labelmap # Отобразить все совпадения групп
+            regex: __meta_kubernetes_service_label_(.+) #
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: kubernetes_namespace
+          - source_labels: [__meta_kubernetes_service_name]
+            target_label: kubernetes_name
+
+      - job_name: 'rabbitmq-exporter' 
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_label_app]
+            action: keep # Используем действие keep, чтобы оставить
+            regex: prometheus-rabbitmq-exporter # только эндпоинты сервисов с метками
+          - action: labelmap # Отобразить все совпадения групп
+            regex: __meta_kubernetes_service_label_(.+) #
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: kubernetes_namespace
+          - source_labels: [__meta_kubernetes_service_name]
+            target_label: kubernetes_name
 
 
 # adds additional scrape configs to prometheus.yml
