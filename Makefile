@@ -3,7 +3,7 @@ TOKEN=k2uyd4qfh1iDXTpwg-7-
 #GITLAB_URL=gitlab.34.76.115.243.nip.io
 GITLAB_URL=ekb-git:8181
 USER_PASS=otusgitlab
-SEARCH_TOKEN=9294ea2a5f6bade5665343bf9f0287
+SEARCH_TOKEN=0c6dd090429c8d2a4192374c44a4de
 PROJECT=soy-sound-282710
 #PROJECT=docker-275212
 CRED=/root/.config/gcloud/legacy_credentials/hataldir@k66.ru/adc.json
@@ -101,7 +101,7 @@ gitlab-push-crawler:
 	git push -u origin master
 
 gitlab-push-search:
-	cd charts/search ;\
+	cd src/search_deploy ;\
 	git remote remove origin ;\
 	git remote add origin http://${GITLAB_URL}/${USER_NAME}/search.git ;\
 	git add . ;\
