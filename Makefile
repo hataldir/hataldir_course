@@ -139,11 +139,11 @@ monitor: prom-install mongodb-ex rabbitmq-ex grafana-install
 
 
 search-ip-prod:
-	echo "IP-адрес веб-интерфейса окружения production" ; \
+	@echo "IP-адрес веб-интерфейса окружения production" ; \
 	kubectl get ingress production-webui -n production -ojsonpath='{.status.loadBalancer.ingress[0].ip}'; echo
 
 search-ip-staging:
-	echo "IP-адрес веб-интерфейса окружения staging" ; \
+	@echo "IP-адрес веб-интерфейса окружения staging" ; \
 	kubectl get ingress staging-webui -n staging -ojsonpath='{.status.loadBalancer.ingress[0].ip}'; echo
 
 search-ip: search-ip-staging search-ip-prod
