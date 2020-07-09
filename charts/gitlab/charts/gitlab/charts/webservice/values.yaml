@@ -41,7 +41,8 @@ metrics:
     prometheus.io/port: "8080"
     prometheus.io/path: "/-/metrics"
 service:
-  type: ClusterIP
+#  type: ClusterIP
+  type: NodePort
   externalPort: 8080
   internalPort: 8080
   workhorseExternalPort: 8181

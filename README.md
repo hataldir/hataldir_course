@@ -16,13 +16,13 @@
 Кластер создается при помощи terraform.
 Конфигурационные файлы - в каталоге terraform. Запуск - make gke.
 
-Далее устанавливается  Helm (make helm-init), с его помощью устанавливается nginx-ingress и определяется его ip (make ingress-ip)
+Далее устанавливается  Helm (make helm-init), ждем его запуска, устанавливаем nginx-ingress  (make ingress-install), ждем его запуска и определяем его ip (make ingress-ip)
 
 (TODO) Адрес прописывается в values.yaml для Prometheus и Grafana.
 
 С помощью Helm устанавливается Gitlab (make gitlab-install)
 Чарт helm находится  в каталоге charts/gitlab. 
-Определяются адрес веб-интерфейса Gitlab (make gitlab-ip) и пароль пользователя root (make gitlab-pass)
+Определяются адрес веб-интерфейса Gitlab (make gitlab-ip).
 
 (TODO) Адрес Gitlab прописывается в Makefile и charts/gitlab/values.yaml  (make gitlab-ip-add)
 
@@ -32,7 +32,7 @@
 2. Работа с приложением в Gitlab.
 
 У нас развернут Gitlab, в нем создана группа hataldir и три проекта - crawler, webui и search. Адрес веб-интерфейса - gitlab.GITLAB-IP.nip.io, где GITLAB-IP - ip-адрес, определенный в предыдущем пункте (make gitlab-ip)
-Далее необходимо зайти под root в веб-интерфейс Gitlab, в Settings/Access Tokens получить Access token и внести его в Makefile в переменную TOKEN. Также стоит сменить первоначальный пароль root на более простой.
+Далее необходимо зайти под root/otusgitlab в веб-интерфейс Gitlab, в Settings/Access Tokens получить Access token, внести его в Makefile в переменную TOKEN и выполнить make gitlab-init.
 
 Затем можно выполнить загрузку проектов в Gitlab (make gitlab-push).
 Проекты находятся в src/crawler, src/webui и src/search.

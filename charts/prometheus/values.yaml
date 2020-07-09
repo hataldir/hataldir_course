@@ -679,7 +679,7 @@ server:
     ## Must be provided if Ingress is enabled
     ##
     hosts: 
-       - prometheus.35.187.55.28.nip.io
+       - prometheus.35.205.68.206.nip.io
     #   - domain.com/prometheus
 
     ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.

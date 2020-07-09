@@ -40,8 +40,7 @@ global:
     allowClusterRoles: true
   ## doc/charts/globals.md#configure-host-settings
   hosts:
-#    domain: default.svc.cluster.local
-    domain: 34.77.107.70.nip.io
+    domain:   34.78.49.65.nip.io
     hostSuffix:
     https: false
     externalIP:
@@ -74,9 +73,10 @@ global:
   ## Initial root password for this GitLab installation
   ## Secret created according to doc/installation/secrets.md#initial-root-password
   ## If allowing shared-secrets generation, this is OPTIONAL.
-  initialRootPassword: {}
+  initialRootPassword: 
     # secret: RELEASE-gitlab-initial-root-password
     # key: password
+    key: otusgitlab
 
   ## doc/charts/globals.md#configure-postgresql-settings
   psql:
