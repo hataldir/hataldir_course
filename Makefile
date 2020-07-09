@@ -133,10 +133,7 @@ rabbitmq-ex:
 	helm upgrade rabbitmq-exporter-s . -f values-s.yaml --install ;\
 	helm upgrade rabbitmq-exporter-p . -f values-p.yaml --install
 
-monitor: prom-install mongodb-ex rabbitmq-ex grafana-install
-
-
-
+web: gitlab-install prom-install mongodb-ex rabbitmq-ex grafana-install
 
 search-ip-prod:
 	@echo "IP-адрес веб-интерфейса окружения production" ; \

@@ -20,14 +20,11 @@
 
 (TODO) Адрес прописывается в values.yaml для Prometheus и Grafana.
 
-С помощью Helm устанавливается Gitlab (make gitlab-install)
-Чарт helm находится  в каталоге charts/gitlab. 
-Определяются адрес веб-интерфейса Gitlab (make gitlab-ip).
+С помощью Helm устанавливаются Gitlab, Prometheus и Grafana (make web)
+Чарты находятся  в каталоге charts. 
+Определяется адрес веб-интерфейса Gitlab (make gitlab-ip).
 
-(TODO) Адрес Gitlab прописывается в Makefile и charts/gitlab/values.yaml  (make gitlab-ip-add)
-
-Устанавливаются Prometheus и Grafana (make monitor).
-Чарты находятся в charts/prometheus и charts/grafana.
+(TODO) Адрес Gitlab прописывается в Makefile и charts/gitlab/values.yaml
 
 ## 2. Работа с приложением в Gitlab.
 
@@ -57,9 +54,9 @@
   
 Для search пайплайн выглядит так:
 
--- staging - создание/обновление окружения staging
+- staging - создание/обновление окружения staging
 
--- production - создание/обновление окружения production (вручную)
+- production - создание/обновление окружения production (вручную)
 
 После выполнения пайплайнов мы имеем окружения staging и production, доступные извне. Чтобы узнать их адреса, можно выполнить команду make search-ip.
 
