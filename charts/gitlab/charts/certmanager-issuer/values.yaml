@@ -2,7 +2,7 @@
 server: https://acme-v02.api.letsencrypt.org/directory
 
 # Provide an email to associate with your TLS certificates
-email: hataldir@gmail.com
+# email:
 
 rbac:
   create: true

@@ -1,7 +1,6 @@
 USER_NAME=hataldir
 TOKEN=k2uyd4qfh1iDXTpwg-7-
-#GITLAB_URL=gitlab.34.76.115.243.nip.io
-GITLAB_URL=ekb-git:8181
+GITLAB_URL=/gitlab.34.78.244.197.nip.io
 USER_PASS=otusgitlab
 SEARCH_TOKEN=0c6dd090429c8d2a4192374c44a4de
 PROJECT=soy-sound-282710

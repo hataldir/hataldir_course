@@ -40,15 +40,12 @@ global:
     allowClusterRoles: true
   ## doc/charts/globals.md#configure-host-settings
   hosts:
-    domain:   34.78.49.65.nip.io
+    domain: 34.78.244.197.nip.io
     hostSuffix:
     https: false
     externalIP:
     ssh: ~
     gitlab: {}
-#       name: gitlab.34.77.107.70.xip.io
-     
-#       name: gitlab-webservice
     minio: {}
     registry: {}
     tls: {}
@@ -58,8 +55,8 @@ global:
     configureCertmanager: true
     annotations: {}
     enabled: true
-    tls: 
-       enabled: false
+    tls: {}
+    #   enabled: true
     #   secretName:
 
   gitlab:
@@ -73,10 +70,9 @@ global:
   ## Initial root password for this GitLab installation
   ## Secret created according to doc/installation/secrets.md#initial-root-password
   ## If allowing shared-secrets generation, this is OPTIONAL.
-  initialRootPassword: 
+  initialRootPassword: {}
     # secret: RELEASE-gitlab-initial-root-password
     # key: password
-    key: otusgitlab
 
   ## doc/charts/globals.md#configure-postgresql-settings
   psql:
@@ -528,10 +524,10 @@ upgradeCheck:
       cpu: 50m
 
 ## Settings to for the Let's Encrypt ACME Issuer
-# certmanager-issuer:
+certmanager-issuer:
 #   # The email address to register certificates requested from Let's Encrypt.
 #   # Required if using Let's Encrypt.
-#   email: email@example.com
+   email: hataldir@gmail.com
 
 ## Installation & configuration of jetstack/cert-manager
 ## See requirements.yaml for current version
