@@ -1,6 +1,6 @@
 USER_NAME=hataldir
 #TOKEN=k2uyd4qfh1iDXTpwg-7-
-TOKEN=859J3tmmyY7S4bMj8ga-
+TOKEN=hx3ZWBSTGzBKxNPyFUzo
 #GITLABURL=/gitlab.34.78.244.197.nip.io
 GITLAB_URL=gitlab.35.241.233.180.nip.io
 USER_PASS=otusgitlab
@@ -73,7 +73,9 @@ gitlab-ip:
 
 gitlab-url:
 	@echo "Веб-интерфейс Gitlab:" ;\
-	echo "http://${GITLAB_URL}"
+	GITLABIP=`kubectl get ingress gitlab-webservice -ojsonpath='{.status.loadBalancer.ingress[0].ip}'; echo` ;\
+	export GITLABIP=$$GITLABIP ;\
+	echo "http://gitlab.$$GITLABIP.nip.io"
 
 gke:
 	@echo "Создание кластера GKE с помощью terraform" ; \
