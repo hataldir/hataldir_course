@@ -40,7 +40,8 @@ global:
     allowClusterRoles: true
   ## doc/charts/globals.md#configure-host-settings
   hosts:
-    domain: 34.78.244.197.nip.io
+#    domain: 35.241.233.180.nip.io
+    domain: 35.241.233.180.nip.io
     hostSuffix:
     https: false
     externalIP:
@@ -71,8 +72,8 @@ global:
   ## Secret created according to doc/installation/secrets.md#initial-root-password
   ## If allowing shared-secrets generation, this is OPTIONAL.
   initialRootPassword: {}
-    # secret: RELEASE-gitlab-initial-root-password
-    # key: password
+#    secret: gitlab-gitlab-initial-root-password
+#    key: otusgitlab
 
   ## doc/charts/globals.md#configure-postgresql-settings
   psql:
